@@ -34,6 +34,9 @@ train_t <- sample(seq_len(nrow(training.imputed)), size = sampleSize)
 train <- training.imputed[train_t, ]
 test <- training.imputed[-train_t, ]
 
+tuneRF(y=train$Class,x=subset(train, select=-Class), ntreeTry=50, stepFactor=2, improve=0.05,
+       trace=TRUE, plot=TRUE, doBest=FALSE)
+
 #Executing random forest in parallel as per config (numcores_free)
 rf_model <- foreach(ntree=rep(200,detectCores()-numcores_free),.combine=combine, .multicombine=TRUE,
               .packages='randomForest') %dopar% {
