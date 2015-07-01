@@ -28,12 +28,6 @@ imputed <- missForest(training.clean,maxiter = 10, ntree = 10, verbose = TRUE)
 training.imputed<-imputed$ximp
 sapply(training.imputed, function(x) sum(is.na(x)))
 
-#Neutralizing Time variables
-training.imputed$Obs<-NULL
-training.imputed$raw_timestamp_part_1<-NULL
-training.imputed$raw_timestamp_part_2<-NULL
-#training.imputed$cvtd_timestamp<-NULL
-
 #creating Train and Test dataset (70:30 ratio)
 sampleSize <- floor(0.70 * nrow(training.imputed))
 train_t <- sample(seq_len(nrow(training.imputed)), size = sampleSize)
