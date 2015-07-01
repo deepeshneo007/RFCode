@@ -33,3 +33,19 @@ During the entire exercise, all the important outputs have been saved to individ
 7)RelativeVariableImportance.png
 
 Code has been commented to indicate where and at what stage the above mentioned out are generated and saved.
+
+# Pseudo Code
+
+The R code has been commented to provide an understanding of what the code does. Following is a concise representation of that:
+
+1) Read input data and generate summary to give an overview of the variables
+
+2) Feature selection Step : Missing value treatment
+
+3) Missing Value imputation Step
+
+4) Breaking the input in training and test 
+
+5) Model Train
+
+6) Model predict on test data
