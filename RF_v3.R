@@ -9,7 +9,7 @@ numcores_free=6 #Number of cores set free. Warning: Setting low value will slow 
 registerDoSNOW(makeCluster(detectCores()-numcores_free, type="SOCK"))
 set.seed(666)
 
-setwd("/Users/deepesh.sharma/Project/tests") #PLEASE SET the working directory
+setwd("/Users/deepesh.sharma/Project/tests/RFCode") #PLEASE SET the working directory
 
 #Loading CSV: Replacing blanks with NA
 training <- read.csv("Dataset3.csv",header=T, na.strings=c("","NA"))
