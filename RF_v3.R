@@ -40,7 +40,7 @@ tuneRF(y=train$Class,x=subset(train, select=-Class), ntreeTry=50, stepFactor=2, 
 #Executing random forest in parallel as per config (numcores_free)
 rf_model <- foreach(ntree=rep(200,detectCores()-numcores_free),.combine=combine, .multicombine=TRUE,
               .packages='randomForest') %dopar% {
-                randomForest(train$Class~.,data=train, ntree=ntree,do.trace=TRUE,importance=TRUE)
+                randomForest(train$Class~.,data=train,mtry=7, ntree=ntree,do.trace=TRUE,importance=TRUE)
               }
 
 print(rf_model) #Printing Model stats
