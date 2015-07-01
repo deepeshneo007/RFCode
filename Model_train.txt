@@ -1,0 +1,13 @@
+
+               Type of random forest: classification
+                     Number of trees: 400
+No. of variables tried at each split: 7
+
+        OOB estimate of  error rate: 10.63%
+Confusion matrix:
+     A    B    C    D    E class.error
+A 2493   12    0    1  251  0.09575626
+B  278 3334   16    0    0  0.08103638
+C    0  391 2188    7    0  0.15390565
+D    0    1  237 2025   13  0.11028120
+E   16    0    0  237 2235  0.10168810
