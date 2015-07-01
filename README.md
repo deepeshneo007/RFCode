@@ -31,3 +31,5 @@ During the entire exercise, all the important outputs have been saved to individ
 6)tuneRFPlot.png
 
 7)RelativeVariableImportance.png
+
+Code has been commented to indicate where and at what stage the above mentioned out are generated and saved.
