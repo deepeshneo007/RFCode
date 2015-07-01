@@ -13,10 +13,11 @@ setwd("/Users/deepesh.sharma/Project/tests/RFCode") #PLEASE SET the working dire
 
 #Loading CSV: Replacing blanks with NA
 training <- read.csv("Dataset3.csv",header=T, na.strings=c("","NA"))
-summary(training)
+summary(training) #Output in summary_dataset3.txt
 
-#Data Cleaning Stage: (Comments added for steps taken)
-sapply(training, function(x) sum(is.na(x))/nrow(training)) #Helps with identifying missing value cutoff to discard variables 
+#Data Cleaning Stage: (Comments added for steps taken) 
+sapply(training, function(x) sum(is.na(x))/nrow(training)) #Helps with identifying missing value cutoff to discard variables
+                                                        #Output in missing_dataset3.csv
 training.clean <- training[,colSums(is.na(training))<(.9*nrow(training))] #Discarding variables with 90% or more missing values
 
 #Changing datetime to integer format
@@ -24,7 +25,7 @@ training.clean$cvtd_timestamp<-as.numeric(as.POSIXct(training.clean$cvtd_timesta
 summary(training.clean)
 
 #Missing Value imputation using rfimpute
-imputed <- missForest(training.clean,maxiter = 10, ntree = 10, verbose = TRUE)
+imputed <- missForest(training.clean,maxiter = 10, ntree = 10, verbose = TRUE) #Output in imputed_dataset3.csv
 training.imputed<-imputed$ximp
 sapply(training.imputed, function(x) sum(is.na(x)))
 
@@ -35,7 +36,7 @@ train <- training.imputed[train_t, ]
 test <- training.imputed[-train_t, ]
 
 tuneRF(y=train$Class,x=subset(train, select=-Class), ntreeTry=50, stepFactor=2, improve=0.05,
-       trace=TRUE, plot=TRUE, doBest=FALSE)
+       trace=TRUE, plot=TRUE, doBest=FALSE) #Output in tuneRFPlot.png
 
 #Executing random forest in parallel as per config (numcores_free)
 rf_model <- foreach(ntree=rep(200,detectCores()-numcores_free),.combine=combine, .multicombine=TRUE,
@@ -43,12 +44,12 @@ rf_model <- foreach(ntree=rep(200,detectCores()-numcores_free),.combine=combine,
                 randomForest(train$Class~.,data=train,mtry=7, ntree=ntree,do.trace=TRUE,importance=TRUE)
               }
 
-print(rf_model) #Printing Model stats
-varImpPlot(rf_model) #Plotting relative Variable Importance measure
+print(rf_model) #Printing Model stats , output in model_train.csv
+varImpPlot(rf_model) #Plotting relative Variable Importance measure , output in RelativeVariableImportance.png
 
 #Prediction on Test data
 predicted_class_rf <- data.frame(predict(rf_model,test))
 
 #Confusion Matrix printing the results on test data
-confusionMatrix(factor(predicted_class_rf$predict.rf_model..test.),test$Class, dnn = c("Prediction", "Truth"))
+confusionMatrix(factor(predicted_class_rf$predict.rf_model..test.),test$Class, dnn = c("Prediction", "Truth")) #Output in model_test.csv
 
