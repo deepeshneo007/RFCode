@@ -35,6 +35,7 @@ train_t <- sample(seq_len(nrow(training.imputed)), size = sampleSize)
 train <- training.imputed[train_t, ]
 test <- training.imputed[-train_t, ]
 
+#Get best value of mtry
 tuneRF(y=train$Class,x=subset(train, select=-Class), ntreeTry=50, stepFactor=2, improve=0.05,
        trace=TRUE, plot=TRUE, doBest=FALSE) #Output in tuneRFPlot.png
 
